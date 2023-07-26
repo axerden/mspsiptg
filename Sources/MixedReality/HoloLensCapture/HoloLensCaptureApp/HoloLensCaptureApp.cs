@@ -35,6 +35,8 @@ namespace HoloLensCaptureApp
     using StereoKitHeadSensor = Microsoft.Psi.MixedReality.StereoKit.HeadSensor;
     using WinRTGazeSensor = Microsoft.Psi.MixedReality.WinRT.GazeSensor;
 
+#pragma warning disable SA1005, SA1015, SA1012 // Single line comments should begin with single space
+
     /// <summary>
     /// Capture app used to stream sensor data to the accompanying HoloLensCaptureServer.
     /// </summary>
@@ -96,7 +98,7 @@ namespace HoloLensCaptureApp
 
         private static readonly bool IncludeAudio = true;
 
-        private static readonly bool IncludeSceneUnderstanding = true;
+        //private static readonly bool IncludeSceneUnderstanding = true;
         private static readonly TimeSpan SceneUnderstandingInterval = TimeSpan.FromSeconds(60);
         private static readonly SceneQuerySettings SceneUnderstandingSettings = new ()
         {
@@ -167,7 +169,8 @@ namespace HoloLensCaptureApp
             var gyroscope = default(Gyroscope);
             var magnetometer = default(Magnetometer);
             var camera = default(PhotoVideoCamera);
-            var scene = default(SceneUnderstanding);
+
+            //var scene = default(SceneUnderstanding);
             var depthCamera = default(DepthCamera);
             var depthAhatCamera = default(DepthCamera);
             var leftFrontCamera = default(VisibleLightCamera);
@@ -378,12 +381,11 @@ namespace HoloLensCaptureApp
                             : null;
 
                             // SCENE UNDERSTANDING
-                            scene = IncludeSceneUnderstanding ? new SceneUnderstanding(pipeline, new SceneUnderstandingConfiguration
-                            {
-                                MinQueryInterval = SceneUnderstandingInterval,
-                                SceneQuerySettings = SceneUnderstandingSettings,
-                            }) : null;
-
+                            // scene = IncludeSceneUnderstanding ? new SceneUnderstanding(pipeline, new SceneUnderstandingConfiguration
+                            // {
+                            //    MinQueryInterval = SceneUnderstandingInterval,
+                            //    SceneQuerySettings = SceneUnderstandingSettings,
+                            // }) : null;
                             if (IncludeDepth || IncludeAhat || IncludeDepthInfrared || IncludeAhatInfrared || IncludeGrayFrontCameras || IncludeGraySideCameras)
                             {
                                 state = State.CalibrateCameras;
@@ -691,11 +693,10 @@ namespace HoloLensCaptureApp
                                     }
                                 }
 
-                                if (IncludeSceneUnderstanding)
-                                {
-                                    Write("SceneUnderstanding", scene?.Out, port++, Serializers.SceneObjectCollectionFormat(), DeliveryPolicy.LatestMessage);
-                                }
-
+                                // if (IncludeSceneUnderstanding)
+                                // {
+                                //    Write("SceneUnderstanding", scene?.Out, port++, Serializers.SceneObjectCollectionFormat(), DeliveryPolicy.LatestMessage);
+                                // }
                                 if (IncludeDiagnostics)
                                 {
                                     Write("HoloLensDiagnostics", pipeline.Diagnostics, port++, Serializers.PipelineDiagnosticsFormat(), DeliveryPolicy.LatestMessage);

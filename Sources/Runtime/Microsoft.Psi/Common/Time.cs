@@ -15,7 +15,7 @@ namespace Microsoft.Psi
         /// </summary>
         private static TickCalibration tickCalibration = new TickCalibration(
             512,    // max calibration capacity
-            10,     // sync precision (1 us)
+            100,     // sync precision (1 us)
             10000); // max drift (1 ms)
 
         /// <summary>
